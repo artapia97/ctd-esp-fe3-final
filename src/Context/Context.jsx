@@ -4,9 +4,10 @@ import { reducer } from "../reducers/reducer";
 
 const ContextGlobal = createContext();
 const lsFavs = JSON.parse(localStorage.getItem("favs")) || [];
+const lsTheme = localStorage.getItem("theme") || "";
 
 const initialState = {
-  theme: "",
+  theme: lsTheme,
   favs: lsFavs,
   dentists: [],
 };
@@ -27,6 +28,10 @@ const Context = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("favs", JSON.stringify(state.favs));
   }, [state.favs]);
+
+  useEffect(() => {
+    localStorage.setItem("theme", state.theme);
+  }, [state.theme]);
 
   return (
     <ContextGlobal.Provider value={{ state, dispatch }}>
